@@ -13,3 +13,7 @@ To submit this exercise and all future exercises you need [a GitHub repository](
 If you decide to use a private repository, add GitHub user [mluukkai](https://github.com/mluukkai) as a [repository collaborator](https://docs.github.com/en/github/setting-up-and-managing-your-github-user-account/inviting-collaborators-to-a-personal-repository). The collaborator status is only used for verifying your submissions.
 
 Just commit and push your changes into the repository and you are all done.
+
+### Exercise 2. Setting up the ESLint
+
+Set up ESLint in your project so that you can perform linter checks by running `npm run lint`. To get most of linting it is also recommended to integrate ESLint with your editor.
