@@ -175,3 +175,13 @@ const onSubmit = (values) => {
 ```
 
 You can use the [secureTextEntry](https://reactnative.dev/docs/textinput#securetextentry) prop in the `TextInput` component to obscure the password input.
+
+### Exercise 9. Validating the sign-in form
+
+Validate the sign-in form so that both username and password fields are required. Note that the `onSubmit` callback implemented in the previous exercise, should not be called if the form validation fails.
+
+The current implementation of the `TextInput` component should display an error message if a touched field has an error. Emphasize this error message by giving it a red color.
+
+On top of the red error message, give an invalid field a visual indication of an error by giving it a red border color.
+
+The red color used in this implementation is `#d73a4a`.
