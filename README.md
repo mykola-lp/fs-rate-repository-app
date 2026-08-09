@@ -129,3 +129,19 @@ The background color of the app bar in the image is `#24292e` but you can use an
 The current version of the reviewed repositories list looks quite grim. Modify the RepositoryItem component so that it also displays the repository author's avatar image. You can implement this by using the [Image](https://reactnative.dev/docs/image) component. Counts, such as the number of stars and forks, larger than or equal to 1000 should be displayed in thousands with the precision of one decimal and with a "k" suffix. This means that for example fork count of 8439 should be displayed as "8.4k". Also, polish the overall look of the component.
 
 In the image, the `Main` component's background color is set to `#e1e4e8` whereas `RepositoryItem` component's background color is set to `white`. The language tag's background color is `#0366d6` which is the value of the `colors.primary` variable in the theme configuration. Remember to exploit the `Text` component we implemented earlier. Also when needed, split the `RepositoryItem` component into smaller components.
+
+### Exercise 6. The sign-in view
+
+We will soon implement a form, that a user can use to sign in to our application. Before that, we must implement a view that can be accessed from the app bar. Create a file `SignIn.jsx` in the components directory with the following content:
+
+```jsx
+import Text from './Text';
+
+const SignIn = () => {
+  return <Text>The sign-in view</Text>;
+};
+
+export default SignIn;
+```
+
+Set up a route for this `SignIn` component in the `Main` component. Also, add a tab with the text "Sign in" to the app bar next to the "Repositories" tab. Users should be able to navigate between the two views by pressing the tabs (hint: you can use the React router's [Link](https://reactrouter.com/6.4.5/components/link-native) component).
