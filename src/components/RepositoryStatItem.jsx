@@ -6,6 +6,7 @@ import formatCount from '../utils/formatCount';
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     alignItems: 'center',
   },
 });
