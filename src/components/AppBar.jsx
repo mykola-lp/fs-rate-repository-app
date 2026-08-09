@@ -3,12 +3,14 @@ import Constants from 'expo-constants';
 
 import AppBarTab from './AppBarTab';
 
+import theme from '../theme';
+
 const styles = StyleSheet.create({
   container: {
     paddingTop: Constants.statusBarHeight,
-    paddingBottom: 25,
-    paddingHorizontal: 25,
-    backgroundColor: '#24292e',
+    paddingBottom: 15,
+    paddingHorizontal: 15,
+    backgroundColor: theme.colors.appBarBackground,
   },
 });
 
