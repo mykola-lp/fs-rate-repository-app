@@ -206,3 +206,7 @@ useQuery(MY_QUERY, {
 The `gql` template literal tag can be imported from the `@apollo/client` library as instructed earlier. Consider using the structure recommended earlier for the GraphQL related code.
 
 The changes in the `useRepositories` hook should not affect the `RepositoryList` component in any way.
+
+### Exercise 12. Environment variables
+
+Instead of the hardcoded Apollo Server's URL, use an environment variable defined in the .env file when initializing the Apollo Client. You can name the environment variable for example `EXPO_PUBLIC_APOLLO_URI`.
