@@ -17,11 +17,13 @@ const App = () => {
     <>
       <StatusBar style="light" />
 
-      <NativeRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+      <NativeRouter
+        future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+      >
         <ApolloProvider client={apolloClient}>
-            <AuthStorageContext.Provider value={authStorage}>
-              <Main />
-            </AuthStorageContext.Provider>
+          <AuthStorageContext.Provider value={authStorage}>
+            <Main />
+          </AuthStorageContext.Provider>
         </ApolloProvider>
       </NativeRouter>
     </>
