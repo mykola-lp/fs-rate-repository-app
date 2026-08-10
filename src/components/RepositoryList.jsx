@@ -5,6 +5,8 @@ import RepositoryItem from './RepositoryItem';
 
 import theme from '../theme';
 
+import useRepositories from '../hooks/useRepositories';
+
 const styles = StyleSheet.create({
   separator: {
     height: 10,
@@ -15,21 +17,7 @@ const styles = StyleSheet.create({
 const ItemSeparator = () => <View style={styles.separator} />;
 
 const RepositoryList = () => {
-  const [repositories, setRepositories] = useState();
-
-  // Simulate an API call to fetch repositories
-  const fetchRepositories = async () => {
-    // Replace this with your actual API call
-    // Metro: exp://192.168.0.103:8081
-    const response = await fetch('http://192.168.0.103:5000/api/repositories');
-    const json = await response.json();
-
-    setRepositories(json);
-  };
-
-  useEffect(() => {
-    fetchRepositories();
-  }, []);
+  const { repositories } = useRepositories();
 
   // Get the nodes from the edges array
   const repositoryNodes = repositories
