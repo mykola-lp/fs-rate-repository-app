@@ -1,7 +1,13 @@
+import { ApolloProvider } from '@apollo/client/react';
+
 import { StatusBar } from 'expo-status-bar';
 import { NativeRouter } from 'react-router-native';
 
 import Main from './src/components/Main';
+
+import createApolloClient from './src/utils/apolloClient';
+
+const apolloClient = createApolloClient();
 
 const App = () => {
   return (
@@ -9,7 +15,9 @@ const App = () => {
       <StatusBar style="light" />
 
       <NativeRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
-        <Main />
+        <ApolloProvider client={apolloClient}>
+          <Main />
+        </ApolloProvider>
       </NativeRouter>
     </>
   );
