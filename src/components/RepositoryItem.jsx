@@ -1,4 +1,4 @@
-import { View, Image, StyleSheet } from 'react-native';
+import { View, Image, StyleSheet, Pressable, Linking } from 'react-native';
 
 import Text from './Text';
 import LanguageTag from './LanguageTag';
@@ -31,9 +31,19 @@ const styles = StyleSheet.create({
   statsRow: {
     flexDirection: 'row',
   },
+  button: {
+    backgroundColor: theme.colors.primary,
+    borderRadius: 4,
+    padding: 15,
+    alignItems: 'center',
+    marginTop: 15,
+  },
+  buttonText: {
+    color: 'white',
+  },
 });
 
-const RepositoryItem = ({ repository }) => {
+const RepositoryItem = ({ repository, showGithubButton = false }) => {
   const {
     fullName,
     description,
@@ -43,7 +53,14 @@ const RepositoryItem = ({ repository }) => {
     ratingAverage,
     reviewCount,
     ownerAvatarUrl,
+    url,
   } = repository;
+
+  const onOpenInGithub = () => {
+    if (url) {
+      Linking.openURL(url);
+    }
+  };
 
   return (
     <View testID="repositoryItem" style={styles.container}>
@@ -52,7 +69,6 @@ const RepositoryItem = ({ repository }) => {
 
         <View style={styles.infoContainer}>
           <Text fontWeight="bold">{fullName}</Text>
-  
           <Text style={styles.description} color="textSecondary">
             {description}
           </Text>
@@ -67,6 +83,14 @@ const RepositoryItem = ({ repository }) => {
         <RepositoryStatItem label="Reviews" value={reviewCount} />
         <RepositoryStatItem label="Rating" value={ratingAverage} />
       </View>
+
+      {showGithubButton && (
+        <Pressable style={styles.button} onPress={onOpenInGithub}>
+          <Text style={styles.buttonText} fontWeight="bold">
+            Open in GitHub
+          </Text>
+        </Pressable>
+      )}
     </View>
   );
 };
