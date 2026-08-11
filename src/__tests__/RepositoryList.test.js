@@ -47,7 +47,7 @@ describe('RepositoryList', () => {
       };
 
       await render(
-        <NativeRouter>
+        <NativeRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
           <RepositoryListContainer repositories={repositories} />
         </NativeRouter>,
       );
