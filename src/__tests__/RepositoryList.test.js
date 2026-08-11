@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react-native';
+import { NativeRouter } from 'react-router-native';
 
 import { RepositoryListContainer } from '../components/RepositoryList';
 
@@ -45,7 +46,11 @@ describe('RepositoryList', () => {
         ],
       };
 
-      await render(<RepositoryListContainer repositories={repositories} />);
+      await render(
+        <NativeRouter>
+          <RepositoryListContainer repositories={repositories} />
+        </NativeRouter>,
+      );
 
       const repositoryItems = screen.getAllByTestId('repositoryItem');
       const [firstRepositoryItem, secondRepositoryItem] = repositoryItems;
