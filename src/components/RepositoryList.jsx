@@ -1,7 +1,12 @@
+import { useState } from 'react';
+
 import { FlatList, View, StyleSheet, Pressable } from 'react-native';
+
 import { useNavigate } from 'react-router-native';
 
 import RepositoryItem from './RepositoryItem';
+import RepositoryListHeader, { ORDERING_OPTIONS } from './RepositoryListHeader';
+
 import useRepositories from '../hooks/useRepositories';
 
 import theme from '../theme';
@@ -15,7 +20,35 @@ const styles = StyleSheet.create({
 
 const ItemSeparator = () => <View style={styles.separator} />;
 
-export const RepositoryListContainer = ({ repositories }) => {
+const getOrderingVariables = (ordering) => {
+  switch (ordering) {
+    case ORDERING_OPTIONS.HIGHEST_RATED:
+      return {
+        orderBy: 'RATING_AVERAGE',
+        orderDirection: 'DESC'
+      };
+
+    case ORDERING_OPTIONS.LOWEST_RATED:
+      return {
+        orderBy: 'RATING_AVERAGE',
+        orderDirection: 'ASC'
+      };
+  
+    case ORDERING_OPTIONS.LATEST:
+
+    default:
+      return {
+        orderBy: 'CREATED_AT',
+        orderDirection: 'DESC'
+      };
+  }
+};
+
+export const RepositoryListContainer = ({
+  repositories,
+  selectedOrdering,
+  onSelectOrdering,
+}) => {
   const navigate = useNavigate();
 
   const repositoryNodes = repositories
@@ -26,6 +59,12 @@ export const RepositoryListContainer = ({ repositories }) => {
     <FlatList
       data={repositoryNodes}
       ItemSeparatorComponent={ItemSeparator}
+      ListHeaderComponent={() => (
+        <RepositoryListHeader
+          selectedOrdering={selectedOrdering}
+          onSelectOrdering={onSelectOrdering}
+        />
+      )}
       renderItem={({ item }) => (
         <Pressable onPress={() => navigate(`/repositories/${item.id}`)}>
           <RepositoryItem repository={item} />
@@ -37,9 +76,17 @@ export const RepositoryListContainer = ({ repositories }) => {
 };
 
 const RepositoryList = () => {
-  const { repositories } = useRepositories();
+  const [selectedOrdering, setSelectedOrdering] = useState(ORDERING_OPTIONS.LATEST);
 
-  return <RepositoryListContainer repositories={repositories} />;
+  const { repositories } = useRepositories(getOrderingVariables(selectedOrdering));
+
+  return (
+    <RepositoryListContainer
+      repositories={repositories}
+      selectedOrdering={selectedOrdering}
+      onSelectOrdering={setSelectedOrdering}
+    />
+  );
 };
 
 export default RepositoryList;
