@@ -1,13 +1,17 @@
+import { useContext } from 'react';
+
 import { View, StyleSheet, ScrollView, Pressable } from 'react-native';
+
 import { useApolloClient, useQuery } from '@apollo/client/react';
 import Constants from 'expo-constants';
+
+import { GET_ME } from '../graphql/queries';
+
+import AuthStorageContext from '../contexts/AuthStorageContext';
 
 import AppBarTab from './AppBarTab';
 import Text from './Text';
 
-import { GET_ME } from '../graphql/queries';
-import AuthStorageContext from '../contexts/AuthStorageContext';
-import { useContext } from 'react';
 import theme from '../theme';
 
 const styles = StyleSheet.create({
@@ -53,7 +57,10 @@ const AppBar = () => {
             <Text style={styles.text}>Sign out</Text>
           </Pressable>
         ) : (
-          <AppBarTab text="Sign in" to="/signin" />
+          <>
+            <AppBarTab text="Sign in" to="/signin" />
+            <AppBarTab text="Sign up" to="/signup" />
+          </>
         )}
       </ScrollView>
     </View>

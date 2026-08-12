@@ -534,3 +534,17 @@ useQuery(GET_REPOSITORY, {
 Note that only an existing public GitHub repository can be reviewed and a user can review the same repository only once. You don't have to handle these error cases, but the error payload includes specific codes and messages for these errors. You can try out your implementation by reviewing one of your own public repositories or any other public repository.
 
 The review form should be accessible through the app bar. Create a tab to the app bar with a label "Create a review". This tab should only be visible to users who have signed in. You will also need to define a route for the review form.
+
+### Exercise 22. The sign up form
+
+Implement a sign up form for registering a user using Formik. The form should have three fields: username, password, and password confirmation. Validate the form using a Yup schema so that it contains the following validations:
+
+- Username is a required string with a length between 5 and 30
+- Password is a required string with a length between 5 and 50
+- Password confirmation matches the password
+
+The password confirmation field's validation can be a bit tricky, but it can be done for example by using the [oneOf](https://github.com/jquense/yup#schemaoneofarrayofvalues-arrayany-message-string--function-schema-alias-equals) and [ref](https://github.com/jquense/yup#refpath-string-options--contextprefix-string--ref) methods like suggested in [this issue](https://github.com/jaredpalmer/formik/issues/90#issuecomment-354873201).
+
+You can create a new user by using the `createUser` mutation. Find out how this mutation works by exploring the documentation in the Apollo Sandbox. After a successful `createUser` mutation, sign the created user in by using the `useSignIn` hook as we did in the sign in form. After the user has been signed in, redirect the user to the reviewed repositories list view.
+
+The user should be able to access the sign-up form through the app bar by pressing a "Sign up" tab. This tab should only be visible to users that aren't signed in.
