@@ -562,3 +562,26 @@ The `repositories` query used to fetch the reviewed repositories has an argument
 The selected ordering principle state can be maintained for example using React's [useState](https://react.dev/reference/react/useState) hook. The variables used in the `repositories` query can be given to the `useRepositories` hook as an argument.
 
 You can use for example [@react-native-picker/picker](https://docs.expo.dev/versions/latest/sdk/picker/) library, or [React Native Paper](https://callstack.github.io/react-native-paper/) library's [Menu](https://callstack.github.io/react-native-paper/docs/components/Menu/) component to implement the ordering principle's selection. You can use the `FlatList` component's [ListHeaderComponent](https://reactnative.dev/docs/flatlist#listheadercomponent) prop to provide the list with a header containing the selection component.
+
+### Exercise 24. Filtering the reviewed repositories list
+
+The Apollo Server allows filtering repositories using the repository's name or the owner's username. This can be done using the `searchKeyword` argument in the `repositories` query. Here's an example of how to use the argument in a query:
+
+```graphql
+{
+  repositories(searchKeyword: "ze") {
+    edges {
+      node {
+        id
+        fullName
+      }
+    }
+  }
+}
+```
+
+Implement a feature for filtering the reviewed repositories list based on a keyword. Users should be able to type in a keyword into a text input and the list should be filtered as the user types. You can use a simple `TextInput` component or something a bit fancier such as React Native Paper's [Searchbar](https://callstack.github.io/react-native-paper/docs/components/Searchbar/) component as the text input. Put the text input component in the `FlatList` component's header.
+
+To avoid a multitude of unnecessary requests while the user types the keyword fast, only pick the latest input after a short delay. This technique is often referred to as [debouncing](https://lodash.com/docs/4.17.15#debounce). [use-debounce](https://www.npmjs.com/package/use-debounce) library is a handy hook for debouncing a state variable. Use it with a sensible delay time, such as 500 milliseconds.
+
+Store the text input's value by using the `useState` hook. You can then create a debounced value based on that value by using the `useDebounce` hook. Pass the debounced value to the query as the value of the `searchKeyword` argument.
