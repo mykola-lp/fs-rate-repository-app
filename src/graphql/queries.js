@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 export const GET_REPOSITORIES = gql`
-  query {
-    repositories {
+  query GetRepositories($orderBy: AllRepositoriesOrderBy, $orderDirection: OrderDirection) {
+    repositories(orderBy: $orderBy, orderDirection: $orderDirection) {
       edges {
         node {
           id
@@ -16,15 +16,6 @@ export const GET_REPOSITORIES = gql`
           ownerAvatarUrl
         }
       }
-    }
-  }
-`;
-
-export const GET_ME = gql`
-  query {
-    me {
-      id
-      username
     }
   }
 `;
@@ -56,6 +47,15 @@ export const GET_REPOSITORY = gql`
           }
         }
       }
+    }
+  }
+`;
+
+export const GET_ME = gql`
+  query {
+    me {
+      id
+      username
     }
   }
 `;

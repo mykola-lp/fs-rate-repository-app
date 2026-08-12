@@ -548,3 +548,17 @@ The password confirmation field's validation can be a bit tricky, but it can be 
 You can create a new user by using the `createUser` mutation. Find out how this mutation works by exploring the documentation in the Apollo Sandbox. After a successful `createUser` mutation, sign the created user in by using the `useSignIn` hook as we did in the sign in form. After the user has been signed in, redirect the user to the reviewed repositories list view.
 
 The user should be able to access the sign-up form through the app bar by pressing a "Sign up" tab. This tab should only be visible to users that aren't signed in.
+
+### Exercise 23. Sorting the reviewed repositories list
+
+At the moment repositories in the reviewed repositories list are ordered by the date of repository's first review. Implement a feature that allows users to select the principle, which is used to order the repositories. The available ordering principles should be:
+
+- Latest repositories. The repository with the latest first review is on the top of the list. This is the current behavior and should be the default principle.
+- Highest rated repositories. The repository with the highest average rating is on the top of the list.
+- Lowest rated repositories. The repository with the lowest average rating is on the top of the list.
+
+The `repositories` query used to fetch the reviewed repositories has an argument called `orderBy`, which you can use to define the ordering principle. The argument has two allowed values: `CREATED_AT` (order by the date of repository's first review) and `RATING_AVERAGE` (order by the repository's average rating). The query also has an argument called `orderDirection` which can be used to change the order direction. The argument has two allowed values: `ASC` (ascending, smallest value first) and `DESC` (descending, biggest value first).
+
+The selected ordering principle state can be maintained for example using React's [useState](https://react.dev/reference/react/useState) hook. The variables used in the `repositories` query can be given to the `useRepositories` hook as an argument.
+
+You can use for example [@react-native-picker/picker](https://docs.expo.dev/versions/latest/sdk/picker/) library, or [React Native Paper](https://callstack.github.io/react-native-paper/) library's [Menu](https://callstack.github.io/react-native-paper/docs/components/Menu/) component to implement the ordering principle's selection. You can use the `FlatList` component's [ListHeaderComponent](https://reactnative.dev/docs/flatlist#listheadercomponent) prop to provide the list with a header containing the selection component.
