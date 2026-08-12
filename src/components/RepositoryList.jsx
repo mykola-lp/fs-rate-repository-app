@@ -61,14 +61,14 @@ export const RepositoryListContainer = ({
     <FlatList
       data={repositoryNodes}
       ItemSeparatorComponent={ItemSeparator}
-      ListHeaderComponent={() => (
+      ListHeaderComponent={
         <RepositoryListHeader
           selectedOrdering={selectedOrdering}
           onSelectOrdering={onSelectOrdering}
           searchKeyword={searchKeyword}
           onChangeSearchKeyword={onChangeSearchKeyword}
         />
-      )}
+      }
       renderItem={({ item }) => (
         <Pressable onPress={() => navigate(`/repositories/${item.id}`)}>
           <RepositoryItem repository={item} />
