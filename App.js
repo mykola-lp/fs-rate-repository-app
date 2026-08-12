@@ -1,20 +1,22 @@
-import { ApolloProvider } from '@apollo/client/react';
-
 import { StatusBar } from 'expo-status-bar';
-import { NativeRouter } from 'react-router-native';
 
-import Main from './src/components/Main';
+import { NativeRouter } from 'react-router-native';
+import { ApolloProvider } from '@apollo/client/react';
+import { PaperProvider } from 'react-native-paper';
 
 import createApolloClient from './src/utils/apolloClient';
 import AuthStorage from './src/utils/authStorage';
+
 import AuthStorageContext from './src/contexts/AuthStorageContext';
+
+import Main from './src/components/Main';
 
 const authStorage = new AuthStorage();
 const apolloClient = createApolloClient(authStorage);
 
 const App = () => {
   return (
-    <>
+    <PaperProvider>
       <StatusBar style="light" />
 
       <NativeRouter
@@ -26,7 +28,7 @@ const App = () => {
           </AuthStorageContext.Provider>
         </ApolloProvider>
       </NativeRouter>
-    </>
+    </PaperProvider>
   );
 };
 
