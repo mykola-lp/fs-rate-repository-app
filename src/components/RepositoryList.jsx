@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
 import { FlatList, View, StyleSheet, Pressable } from 'react-native';
-
 import { useNavigate } from 'react-router-native';
+import { useDebounce } from 'use-debounce';
 
 import RepositoryItem from './RepositoryItem';
 import RepositoryListHeader, { ORDERING_OPTIONS } from './RepositoryListHeader';
@@ -48,6 +48,8 @@ export const RepositoryListContainer = ({
   repositories,
   selectedOrdering,
   onSelectOrdering,
+  searchKeyword,
+  onChangeSearchKeyword,
 }) => {
   const navigate = useNavigate();
 
@@ -59,12 +61,14 @@ export const RepositoryListContainer = ({
     <FlatList
       data={repositoryNodes}
       ItemSeparatorComponent={ItemSeparator}
-      ListHeaderComponent={() => (
+      ListHeaderComponent={
         <RepositoryListHeader
           selectedOrdering={selectedOrdering}
           onSelectOrdering={onSelectOrdering}
+          searchKeyword={searchKeyword}
+          onChangeSearchKeyword={onChangeSearchKeyword}
         />
-      )}
+      }
       renderItem={({ item }) => (
         <Pressable onPress={() => navigate(`/repositories/${item.id}`)}>
           <RepositoryItem repository={item} />
@@ -77,14 +81,21 @@ export const RepositoryListContainer = ({
 
 const RepositoryList = () => {
   const [selectedOrdering, setSelectedOrdering] = useState(ORDERING_OPTIONS.LATEST);
+  const [searchKeyword, setSearchKeyword] = useState('');
+  const [debouncedSearchKeyword] = useDebounce(searchKeyword, 500);
 
-  const { repositories } = useRepositories(getOrderingVariables(selectedOrdering));
+  const { repositories } = useRepositories({
+    ...getOrderingVariables(selectedOrdering),
+    searchKeyword: debouncedSearchKeyword,
+  });
 
   return (
     <RepositoryListContainer
       repositories={repositories}
       selectedOrdering={selectedOrdering}
       onSelectOrdering={setSelectedOrdering}
+      searchKeyword={searchKeyword}
+      onChangeSearchKeyword={setSearchKeyword}
     />
   );
 };
