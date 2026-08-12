@@ -1,4 +1,4 @@
-import { View, TextInput, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { useFormik, FormikProvider } from 'formik';
 import { useNavigate } from 'react-router-native';
 import * as yup from 'yup';
@@ -7,8 +7,6 @@ import FormikTextInput from './FormikTextInput';
 import Button from './Button';
 
 import useCreateReview from '../hooks/useCreateReview';
-
-import theme from '../theme';
 
 const styles = StyleSheet.create({
   container: {
