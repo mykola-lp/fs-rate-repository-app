@@ -36,9 +36,14 @@ const styles = StyleSheet.create({
     marginTop: 4,
     marginBottom: 8,
   },
+  divider: {
+    height: 1,
+    backgroundColor: theme.colors.separator,
+  },
   actionsContainer: {
     flexDirection: 'row',
-    marginTop: 15,
+    padding: 15,
+    backgroundColor: theme.colors.itemBackground,
     gap: 10,
   },
   actionButton: {
@@ -95,7 +100,9 @@ const MyReviewItem = ({ review, onDeleted }) => {
         </View>
       </View>
 
-      <View style={[styles.container, styles.actionsContainer]}>
+      <View style={styles.divider} />
+
+      <View style={styles.actionsContainer}>
         <View style={styles.actionButton}>
           <Button onPress={handleViewRepository}>View repository</Button>
         </View>
