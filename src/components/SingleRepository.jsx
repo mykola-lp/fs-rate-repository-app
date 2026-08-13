@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
 
 const ItemSeparator = () => <View style={styles.separator} />;
 
-export const SingleRepositoryContainer = ({ repository }) => {
+export const SingleRepositoryContainer = ({ repository, onEndReached }) => {
   if (!repository) {
     return null;
   }
@@ -32,18 +32,22 @@ export const SingleRepositoryContainer = ({ repository }) => {
       ItemSeparatorComponent={ItemSeparator}
       renderItem={({ item }) => <ReviewItem review={item} />}
       keyExtractor={({ id }) => id}
-      ListHeaderComponent={() => (
+      ListHeaderComponent={
         <RepositoryItem repository={repository} showGithubButton />
-      )}
+      }
+      onEndReached={onEndReached}
+      onEndReachedThreshold={0.5}
     />
   );
 };
 
 const SingleRepository = () => {
   const { id } = useParams();
-  const { repository } = useRepository(id);
+  const { repository, fetchMore } = useRepository(id);
 
-  return <SingleRepositoryContainer repository={repository} />;
+  return (
+    <SingleRepositoryContainer repository={repository} onEndReached={fetchMore} />
+  );
 };
 
 export default SingleRepository;
