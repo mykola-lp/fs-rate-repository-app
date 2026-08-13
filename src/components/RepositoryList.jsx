@@ -87,7 +87,8 @@ const RepositoryList = () => {
   const [searchKeyword, setSearchKeyword] = useState('');
   const [debouncedSearchKeyword] = useDebounce(searchKeyword, 500);
 
-  const { repositories } = useRepositories({
+  const { repositories, fetchMore } = useRepositories({
+    first: 5,
     ...getOrderingVariables(selectedOrdering),
     searchKeyword: debouncedSearchKeyword,
   });
@@ -99,7 +100,7 @@ const RepositoryList = () => {
       onSelectOrdering={setSelectedOrdering}
       searchKeyword={searchKeyword}
       onChangeSearchKeyword={setSearchKeyword}
-      onEndReached={() => console.log('End of the list reached')}
+      onEndReached={fetchMore}
     />
   );
 };
