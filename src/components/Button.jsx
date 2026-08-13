@@ -6,7 +6,6 @@ import theme from '../theme';
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: theme.colors.primary,
     borderRadius: 4,
     padding: 15,
     alignItems: 'center',
@@ -16,9 +15,12 @@ const styles = StyleSheet.create({
   },
 });
 
-const Button = ({ onPress, children }) => {
+const Button = ({ onPress, children, color = 'primary' }) => {
   return (
-    <Pressable style={styles.container} onPress={onPress}>
+    <Pressable
+      style={[styles.container, { backgroundColor: theme.colors[color] }]}
+      onPress={onPress}
+    >
       <Text style={styles.text} fontWeight="bold">
         {children}
       </Text>
