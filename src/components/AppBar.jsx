@@ -2,12 +2,12 @@ import { useContext } from 'react';
 
 import { View, StyleSheet, ScrollView, Pressable } from 'react-native';
 
-import { useApolloClient, useQuery } from '@apollo/client/react';
+import { useApolloClient } from '@apollo/client/react';
 import Constants from 'expo-constants';
 
-import { GET_ME } from '../graphql/queries';
-
 import AuthStorageContext from '../contexts/AuthStorageContext';
+
+import useAuthenticatedUser from '../hooks/useAuthenticatedUser';
 
 import AppBarTab from './AppBarTab';
 import Text from './Text';
@@ -36,9 +36,9 @@ const styles = StyleSheet.create({
 const AppBar = () => {
   const authStorage = useContext(AuthStorageContext);
   const apolloClient = useApolloClient();
-  const { data } = useQuery(GET_ME);
+  const { user } = useAuthenticatedUser();
 
-  const isSignedIn = !!data?.me;
+  const isSignedIn = !!user;
 
   const signOut = async () => {
     await authStorage.removeAccessToken();
@@ -51,6 +51,7 @@ const AppBar = () => {
         <AppBarTab text="Repositories" to="/" />
 
         {isSignedIn && <AppBarTab text="Create a review" to="/review" />}
+        {isSignedIn && <AppBarTab text="My reviews" to="/myreviews" />}
 
         {isSignedIn ? (
           <Pressable onPress={signOut}>
