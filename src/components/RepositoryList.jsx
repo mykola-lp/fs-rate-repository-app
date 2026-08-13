@@ -50,6 +50,7 @@ export const RepositoryListContainer = ({
   onSelectOrdering,
   searchKeyword,
   onChangeSearchKeyword,
+  onEndReached,
 }) => {
   const navigate = useNavigate();
 
@@ -75,6 +76,8 @@ export const RepositoryListContainer = ({
         </Pressable>
       )}
       keyExtractor={(item) => item.id}
+      onEndReached={onEndReached}
+      onEndReachedThreshold={0.5}
     />
   );
 };
@@ -96,6 +99,7 @@ const RepositoryList = () => {
       onSelectOrdering={setSelectedOrdering}
       searchKeyword={searchKeyword}
       onChangeSearchKeyword={setSearchKeyword}
+      onEndReached={() => console.log('End of the list reached')}
     />
   );
 };
