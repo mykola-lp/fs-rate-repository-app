@@ -13,9 +13,13 @@ const cache = new InMemoryCache({
         repositories: relayStylePagination(),
       },
     },
+    Repository: {
+      fields: {
+        reviews: relayStylePagination(),
+      },
+    },
   },
 });
-
 const createApolloClient = (authStorage) => {
   const authLink = new SetContextLink(async ({ headers }) => {
     try {
