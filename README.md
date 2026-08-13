@@ -585,3 +585,42 @@ Implement a feature for filtering the reviewed repositories list based on a keyw
 To avoid a multitude of unnecessary requests while the user types the keyword fast, only pick the latest input after a short delay. This technique is often referred to as [debouncing](https://lodash.com/docs/4.17.15#debounce). [use-debounce](https://www.npmjs.com/package/use-debounce) library is a handy hook for debouncing a state variable. Use it with a sensible delay time, such as 500 milliseconds.
 
 Store the text input's value by using the `useState` hook. You can then create a debounced value based on that value by using the `useDebounce` hook. Pass the debounced value to the query as the value of the `searchKeyword` argument.
+
+### Exercise 25. The user's reviews view
+
+Implement a feature which allows user to see their reviews. Once signed in, the user should be able to access this view by pressing a "My reviews" tab in the app bar.
+
+Remember that you can fetch the authenticated user from the Apollo Server with the `me` query. This query returns a `User` type, which has a field `reviews`. If you have already implemented a reusable `me` query in your code, you can customize this query to fetch the `reviews` field conditionally. This can be done using GraphQL's [include](https://graphql.org/learn/queries/#directives) directive.
+
+Let's say that the current query is implemented roughly in the following manner:
+
+```graphql
+const GET_CURRENT_USER = gql`
+  query {
+    me {
+      # user fields...
+    }
+  }
+`;
+```
+
+We can extend it to conditionally include reviews:
+
+```graphql
+const GET_CURRENT_USER = gql`
+  query getCurrentUser($includeReviews: Boolean = false) {
+    me {
+      # user fields...
+      reviews @include(if: $includeReviews) {
+        edges {
+          node {
+            # review fields...
+          }
+        }
+      }
+    }
+  }
+`;
+```
+
+The `includeReviews` argument has a default value of `false`, because we don't want to cause additional server overhead unless we explicitly want to fetch authenticated user's reviews. The principle of the `include` directive is quite simple: if the value of the `if` argument is `true`, include the field, otherwise omit it.
