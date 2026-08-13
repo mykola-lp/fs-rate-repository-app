@@ -50,6 +50,7 @@ export const RepositoryListContainer = ({
   onSelectOrdering,
   searchKeyword,
   onChangeSearchKeyword,
+  onEndReached,
 }) => {
   const navigate = useNavigate();
 
@@ -75,6 +76,8 @@ export const RepositoryListContainer = ({
         </Pressable>
       )}
       keyExtractor={(item) => item.id}
+      onEndReached={onEndReached}
+      onEndReachedThreshold={0.5}
     />
   );
 };
@@ -84,7 +87,8 @@ const RepositoryList = () => {
   const [searchKeyword, setSearchKeyword] = useState('');
   const [debouncedSearchKeyword] = useDebounce(searchKeyword, 500);
 
-  const { repositories } = useRepositories({
+  const { repositories, fetchMore } = useRepositories({
+    first: 5,
     ...getOrderingVariables(selectedOrdering),
     searchKeyword: debouncedSearchKeyword,
   });
@@ -96,6 +100,7 @@ const RepositoryList = () => {
       onSelectOrdering={setSelectedOrdering}
       searchKeyword={searchKeyword}
       onChangeSearchKeyword={setSearchKeyword}
+      onEndReached={fetchMore}
     />
   );
 };
