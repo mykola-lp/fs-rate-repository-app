@@ -1,4 +1,66 @@
+# Rate Repository App
+
+A mobile application for rating GitHub repositories. Users can browse GitHub-style repositories, view individual repository details and reviews, and create new reviews when signed in. The app is built with React Native and Expo, and it uses a GraphQL API as its backend. Created as part of Full Stack Open, part 10.
+
 **Course:** https://courses.mooc.fi/org/uh-cs/courses/full-stack-open-react-native
+
+## Try the App
+
+You can try the app on your phone by scanning the QR code below with **Expo Go**:
+
+<img src="./eas-update.svg" alt="QR code to open the app in Expo Go" width="35%" />
+
+## Expo Go on Physical Devices
+
+> **Note:** Some students have reported issues when trying to open the application via Expo Go on a physical phone using the QR code. However, opening the QR code within an emulator seems to work correctly.
+
+I also encountered an issue when trying to open the application on a physical Android phone.
+
+In my case, the application could be opened successfully in an **Android Emulator**.
+
+### Error
+
+When opening the update either by scanning the QR code or by opening the `exp://` link directly, Expo Go displayed:
+
+> Something went wrong. Sorry about that. You can go back to Expo home or try to reload the project.
+
+The error log also contained:
+
+```text
+Uncaught Error: java.io.IOException: Failed to download remote update
+```
+
+### What I Tried
+
+I tested the application with both **Expo SDK 55** and **Expo SDK 54**. I also reinstalled Expo Go using both:
+
+* **Google Play Store**
+* [Expo Go GitHub releases](https://github.com/expo/expo-go-releases/tags)
+
+Based on this [GitHub issue comment](https://github.com/expo/expo/issues/46846#issuecomment-4715003404), I downgraded the project to **Expo SDK 54**, as it appeared to be the more stable option with Expo Go at the time. However, the problem persisted on the physical device.
+
+I also connected the phone to the computer via USB and inspected the logs using `adb logcat`, but I was unable to determine the exact root cause.
+
+### Working Setup (Alternative to QR Code)
+
+The setup that worked reliably for me:
+
+1. Run an **Android Emulator** (AVD) through Android Studio, for example `Medium_Phone`.
+2. Open **Expo Go** in the emulator.
+3. Select **Enter URL manually**.
+4. Open the following update deep link.
+
+**Update deep link:**
+
+```text
+exp://u.expo.dev/0333142d-6de0-4c77-ab6e-5c1e3da4ce6c/group/cb8b547e-86ac-44ad-93ac-da9398476720
+```
+
+**Update details page**
+
+```text
+https://expo.dev/preview/update?message=Retry+after+Expo+Go+reinstall&updateRuntimeVersion=exposdk%3A54.0.0&createdAt=2026-08-14T07%3A01%3A11.928Z&slug=exp&projectId=0333142d-6de0-4c77-ab6e-5c1e3da4ce6c&group=cb8b547e-86ac-44ad-93ac-da9398476720
+```
 
 ## Exercises
 
@@ -635,7 +697,7 @@ You can delete a review using the `deleteReview` mutation. This mutation has a s
 
 ### Exercise 27. OPTIONAL: Infinite scrolling for the repository's reviews list
 
-*Note: This is an optional exercise, and no points are awarded for it.*
+**Note:** This is an optional exercise, and no points are awarded for it.
 
 Implement infinite scrolling for the repository's reviews list. The `Repository` type's `reviews` field has the `first` and `after` arguments similar to the `repositories` query. `ReviewConnection` type also has the `pageInfo` field just like the `RepositoryConnection` type.
 
@@ -692,3 +754,11 @@ const cache = new InMemoryCache({
 ```
 
 As with the reviewed repositories list, use a relatively small `first` argument value while you are trying out the infinite scrolling. You might need to create a few new users and use them to create a few new reviews to make the reviews list long enough to scroll. Set the value of the `first` argument high enough so that the `fetchMore` callback isn't called immediately after the view is loaded, but low enough so that you can see that more reviews are fetched once you reach the end of the list. Once everything is working as intended, you can use a larger value for the `first` argument.
+
+### Exercise 28. Publishing the app via EAS Publish
+
+Publish the final version of your application via EAS Update by following the instructions in the course material.
+
+Then add a **README.md** file to the root of the repository and include a screenshot of the QR code in it. Make sure that the application opened through the QR code actually works, because the course instructor will inspect your application using the QR code before awarding credit.
+
+**Note:** Some students have reported issues when trying to open the application via Expo Go on a physical phone using the QR code. However, opening the QR code within an emulator seems to work correctly.
