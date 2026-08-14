@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "fs-rate-repository-app",
-    "slug": "fs-rate-repository-app",
+    "slug": "rate-repository-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -24,6 +24,18 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "0333142d-6de0-4c77-ab6e-5c1e3da4ce6c"
+      }
+    },
+    "owner": "mykola-lps-team",
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/0333142d-6de0-4c77-ab6e-5c1e3da4ce6c"
     }
   }
 }
