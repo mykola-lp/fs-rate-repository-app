@@ -61,6 +61,20 @@ exp://u.expo.dev/0333142d-6de0-4c77-ab6e-5c1e3da4ce6c/group/cb8b547e-86ac-44ad-9
 ```text
 https://expo.dev/preview/update?message=Retry+after+Expo+Go+reinstall&updateRuntimeVersion=exposdk%3A54.0.0&createdAt=2026-08-14T07%3A01%3A11.928Z&slug=exp&projectId=0333142d-6de0-4c77-ab6e-5c1e3da4ce6c&group=cb8b547e-86ac-44ad-93ac-da9398476720
 ```
+## API
+
+The application uses the [Rate Repository API](https://github.com/fullstack-hy2020/rate-repository-api) as its GraphQL backend.
+
+See [`backend/README.md`](./backend/README.md) for instructions on setting up the API.
+
+## Local Development
+
+For local development, the **API must be running separately** from the mobile application.
+
+1. Start `npm start` in root.
+2. Run the mobile application in an **Android Emulator**.
+
+Both the API and the Android Emulator must be running for the application to access repository, user, and review data.
 
 ## Exercises
 
